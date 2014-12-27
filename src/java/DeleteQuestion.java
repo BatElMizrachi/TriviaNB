@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/DeleteQuestion"})
 public class DeleteQuestion extends HttpServlet {
 
+    
+    ArrayList<QuestionBase> allQuestions;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -25,46 +28,110 @@ public class DeleteQuestion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, FileNotFoundException {
  
-        // הצגת כל השאלות
-         ArrayList<QuestionBase> allQuestions = new ArrayList<QuestionBase>();
-        try {
-            allQuestions = FileHandler.ReadQuestions();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DeleteQuestion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Show All Q</title>");   
-            out.println("<link href=\"Style/bootstrap-theme.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-            out.println("<link href=\"Style/bootstrap-theme.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-            out.println("<link href=\"Style/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-            out.println("<link href=\"Style/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println(ShowForDelete(allQuestions));
-            out.println("</body>");
-            out.println("</html>");
+        try (PrintWriter out = response.getWriter()) 
+        {
+            if(request.getParameter("numberToDelete") != null)
+            {
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Show All Q</title>");   
+                out.println("<link href=\"Style/bootstrap-theme.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap-theme.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("</head>");
+                out.println("<body>");
+                
+                try
+                {
+                    allQuestions.remove(Integer.parseInt(request.getParameter("numberToDelete")) - 1);
+                    FileHandler.WriteQuestions(allQuestions);
+                    
+                    out.println("<form name=\"Success\">");
+                    out.println("<h1>The question has been deleted</h1>");
+                    out.println("<img src=\"Pic/Correct.jpg\"/>");
+                    out.println("</form>");
+                }
+                catch (Exception ex)
+                {
+                    out.println("<form name=\"Failure\">");
+                    out.println("<h1>The question has not been deleted</h1>");
+                    out.println("<img src=\"Pic/Worng.jpg\"/>");
+                    out.println("</form>");
+                }
+                finally
+                {
+                    out.println("</body>");
+                    out.println("</html>");
+                }
+                
+            }
+            else
+            {
+                allQuestions = new ArrayList<QuestionBase>();
+                try 
+                {
+                    allQuestions = FileHandler.ReadQuestions();
+                } 
+                catch (ClassNotFoundException ex) 
+                {
+                    Logger.getLogger(DeleteQuestion.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Show All Q</title>");   
+                out.println("<link href=\"Style/bootstrap-theme.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap-theme.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+               
+                out.println("<script>\n" +
+                    "function validateForm() {\n" +
+                    "    var y = document.forms[\"DeleteForm\"][\"numberToDelete\"].value;\n" +
+                    "    if (y==null || y==\"\") {\n" +
+                    "        alert(\"Number of question field must be filled out\");\n" +
+                    "        return false;\n" +
+                    "    }\n" +
+                    "    if (isNaN(parseFloat(y))) {\n" +
+                    "        alert(\"Number of question field must be numeric\");\n" +
+                    "        return false;\n" +
+                    "    }\n" +
+                    "}\n" +
+                    "</script>");
+                
+                out.println("</head>");
+                out.println("<body>");
+                out.println(ShowForDelete(allQuestions));
+                
+                out.println("<form name=\"DeleteForm\">");
+                out.println("<h3>Insert number of question to delete:</h3>");
+                out.println("<input type=\"text\" name=\"numberToDelete\"/>");
+                out.println("<input type=\"submit\" value=\"Delete\" onclick=\"return validateForm();\"/>");
+                out.println("</form>");
+                
+                out.println("</body>");
+                out.println("</html>");
+            }
         }
     }
 
     protected String ShowForDelete ( ArrayList<QuestionBase> allQuestions)
     {
-        String listQuestion = "<div class=\"panel panel-info\">List of question</div>";
-        listQuestion += "<ul class=\"list-group\">";
+        String listQuestion = "<div>List of question</div>";
+        listQuestion += "<ol>";
         int index = 1;
 
         for (QuestionBase question : allQuestions) 
         {
-            listQuestion+= "<li class=\"list-group-item\">" + question.GetQuestion() + "</li>";
+            listQuestion+= "<li>" + question.GetQuestion() + "</li>";
             index++;
         }
         
-        listQuestion += "</ul>";
+        listQuestion += "</ol>";
         if (index == 1)
             return "<div class=\"alert alert-danger\" role=\"alert\">There are no questions</div>";
         

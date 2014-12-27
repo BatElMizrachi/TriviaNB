@@ -34,7 +34,7 @@ public class AddQuestion extends HttpServlet {
 
                 out.println("<form name=\"Success\">");
                 out.println("<h1>The question has been saved</h1>");
-                out.println("<image/>");    //noya להוסיף תמונה
+                out.println("<img src=\"Pic/Correct.jpg\"/>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");
@@ -43,7 +43,7 @@ public class AddQuestion extends HttpServlet {
             {
                 out.println("<form name=\"Failure\">");
                 out.println("<h1>"+errorMessage+"</h1>");
-                out.println("<image/>");    //noya להוסיף תמונה
+                out.println("<img src=\"Pic/Worng.jpg\"/>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");
@@ -52,7 +52,7 @@ public class AddQuestion extends HttpServlet {
             {
                 out.println("<form name=\"Failure\">");
                 out.println("<h1>The question has not been saved</h1>");
-                out.println("<image/>");    //noya להוסיף תמונה
+                out.println("<img src=\"Pic/Worng.jpg\"/>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");
