@@ -9,32 +9,43 @@ and open the template in the editor.
         <title>Start Game</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="Style/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
-        <link href="Style/bootstrap-theme.css" rel="stylesheet" type="text/css"/>
-        <link href="Style/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="Style/bootstrap.css" rel="stylesheet" type="text/css"/>
+          <script>
+            function isValid() {
+                var a = document.getElementById("CategoryFood").checked;
+                var b = document.getElementById("CategorySport").checked;
+                var c = document.getElementById("CategoryHistory").checked;
+                var d = document.getElementById("CategoryOther").checked;
+                
+                if (a == false && b == false && c == false && d == false) {
+                    alert("You have to select at least one category");
+                    return false;
+                }
+            }
+                  </script>
     </head>
     <body>
+        <h1> Select categories (at least once), and for each category Difficulty </h1>
         <FORM ACTION="StartGame">
-            <div >
-                <span><input type="checkbox" name="Category" value="Food" align="top" /></span>
-                <span style="text-align:center">Food</span>
+            <div>
+                <span style="position: relative"><input type="checkbox" name="Category" value="Food" align="top" /></span>
+                <span style="margin-left: 100px; margin-right: 100px">Food</span>
                 <ol style="display: inline-block ;margin-top: 1em; padding-left: 40px">
                     <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Easy" />Easy </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Medium" />Medium </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Difficult" />Difficult </li>
                 </ol>
-                <span style="display: inline-block"><img src="Pic/Food (1).jpg" alt="Food" align="top" height="60" width="60"/></span>
+                <span style="display: inline-block"><img src="Pic/Food.jpg" alt="Food" style="height: 60px; width:60px ;align:right"/></span>
              
             </div>
             <div class="navbar navbar-default" role="navigation">
                 <span><input type="checkbox" name="Category" value="Sport" />Sport</span>
-                <span><img class="picCategory" src="Pic/sport.jpg" alt=""/></span>
+                
                 <ol style="display: inline-block">
                     <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Easy" />Easy </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Medium" />Medium </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Difficult" />Difficult </li>
                  </ol>
+                <span style="display: inline-block"><img class="picCategory" src="Pic/sport.jpg" alt="Sport" style="height: 60px; width:60px ;align:top"/></span>
              </div> 
             
             <div class="Category">
@@ -46,14 +57,28 @@ and open the template in the editor.
                     <li><input type="radio" name="LevelHistory" value="Difficult" />Difficult</li> 
                 </ol>
                 <span>
-                <img src="Pic/History.jpg" alt=""/>
+                <img src="Pic/History.jpg" alt="" style="height: 60px; width:60px ;align:top"/>
                 </span>
                 
+                 <div class="Category">
+                <span>
+                    <input type="checkbox" name="Category" id="CategoryOther" value="Other">Other
+                </span> 
+                <ol >
+                    <li><input type="radio"  name="LevelOther" value="Easy" checked>Easy <br></li>
+                    <li><input type="radio" name="LevelOther" value="Medium" >Medium <br></li>
+                    <li><input type="radio" name="LevelOther" value="Difficult" >Difficult <br></li>
+                </ol>
+                <span>
+                    <img src="Pic/Other.jpg" alt=""/>
+                </span>
+            </div> 
+
             
             
             
             
-            <div> <input class="btn btn-default navbar-btn" type="submit" value="Play!" name="Play!" /></div>
+            <div> <input class="btn btn-default navbar-btn" type="submit" value="Play!" name="Play!" onclick="return isValid();"/></div>
             
         </form>
     </body>
