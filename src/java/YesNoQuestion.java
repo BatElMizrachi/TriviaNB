@@ -7,7 +7,7 @@ public class YesNoQuestion extends QuestionBase
 
     @Override
     public QuestionType GetQuestionType() {
-        return QuestionType.Open;
+        return QuestionType.YesNo;
     }
 
     public void SetAnswer(boolean answer)
