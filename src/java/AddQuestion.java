@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/AddQuestion"})
 public class AddQuestion extends HttpServlet {
 
+    private String errorMessage;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception 
     {
@@ -29,10 +30,19 @@ public class AddQuestion extends HttpServlet {
                 out.println("</head>");
                 out.println("<body>");
                 
-                AddQuestionByType(request);
+                AddQuestionByType(request, out);
 
                 out.println("<form name=\"Success\">");
                 out.println("<h1>The question has been saved</h1>");
+                out.println("<image/>");    //noya להוסיף תמונה
+                out.println("</form>");
+                out.println("</body>");
+                out.println("</html>");
+            }
+            catch (InvalidValueException ivEx)
+            {
+                out.println("<form name=\"Failure\">");
+                out.println("<h1>"+errorMessage+"</h1>");
                 out.println("<image/>");    //noya להוסיף תמונה
                 out.println("</form>");
                 out.println("</body>");
@@ -175,7 +185,7 @@ public class AddQuestion extends HttpServlet {
         }
     }
 
-    private void AddQuestionByType(HttpServletRequest request) throws Exception {
+    private void AddQuestionByType(HttpServletRequest request , final PrintWriter out) throws Exception {
         
         ArrayList<QuestionBase> allQuestions = new ArrayList<QuestionBase>();
         allQuestions = FileHandler.ReadQuestions();
@@ -202,24 +212,50 @@ public class AddQuestion extends HttpServlet {
         }
         else if (request.getParameter("numberOfAnswer") != null)
         {
+            boolean cantSave= false;
+            errorMessage = "The question will not save: ";
+            
             MultiplePossibleQuestion multiplePossibleQuestion = new MultiplePossibleQuestion();
             multiplePossibleQuestion.SetAnswer(Integer.parseInt(request.getParameter("numberOfAnswer")));
             multiplePossibleQuestion.SetQuestion(request.getParameter("question"));
+            int numberOfPossibleAnswer = 0;
             
             for (int i = 1; i <= Integer.parseInt(request.getParameter("count")); i++)
             {
                 if(request.getParameter(Integer.toString(i)) != null &&
-                        !request.getParameter(Integer.toString(i)).isEmpty())
+                        request.getParameter(Integer.toString(i)).isEmpty())
+                {
+                    cantSave = true;
+                    errorMessage += "There are empty possible answers.";
+                    break;
+                }
+                else
                 {
                     multiplePossibleQuestion.AddToAllAnswer(Integer.toString(i),
                             request.getParameter(Integer.toString(i)));
+                    numberOfPossibleAnswer++;
                 }
             }
             
-            multiplePossibleQuestion.SetCategory(Utils.GetCategoryByUserChoose(request.getParameter("Category")));
-            multiplePossibleQuestion.SetLevel(Utils.GetLevelByUserChoose(request.getParameter("Level")));
-            allQuestions.add(multiplePossibleQuestion);
-            FileHandler.WriteQuestions(allQuestions);
+            if(cantSave &&
+                Integer.parseInt(request.getParameter("numberOfAnswer")) > 0 &&
+                Integer.parseInt(request.getParameter("numberOfAnswer")) <= numberOfPossibleAnswer)
+            {
+                cantSave = true;
+                errorMessage += "The correct answer number is not valid - must be between 1 to " + numberOfPossibleAnswer + ".";
+            }
+            
+            if(cantSave)
+            {
+                throw new InvalidValueException();
+            }
+            else
+            {
+                multiplePossibleQuestion.SetCategory(Utils.GetCategoryByUserChoose(request.getParameter("Category")));
+                multiplePossibleQuestion.SetLevel(Utils.GetLevelByUserChoose(request.getParameter("Level")));
+                allQuestions.add(multiplePossibleQuestion);
+                FileHandler.WriteQuestions(allQuestions);
+            }
         }
         else
         {
@@ -271,12 +307,12 @@ public class AddQuestion extends HttpServlet {
                     "        alert(\"Possible answer count field must be filled out\");\n" +
                     "        return false;\n" +
                     "    }\n" +
-                    "    if (!isNaN(parseFloat(y)) && isFinite(y)) {\n" +
+                    "    if (isNaN(parseFloat(y))) {\n" +
                     "        alert(\"Possible answer count field must be numeric\");\n" +
                     "        return false;\n" +
                     "    }\n" +
-                    "    if (y < 2) {\n" +
-                    "        alert(\"Possible answer count must be bigger the 1\");\n" +
+                    "    if (parseInt(y) < 2 || parseInt(y) > 20) {\n" +
+                    "        alert(\"Possible answer count must be bigger the 1 and smaller than 20\");\n" +
                     "        return false;\n" +
                     "    }\n" +
                     "}\n" +
@@ -290,8 +326,6 @@ public class AddQuestion extends HttpServlet {
                     "function validateForm() {\n" +
                     "    var x = document.forms[\"showViewQuestionToAdd\"][\"question\"].value;\n" +
                     "    var y = document.forms[\"showViewQuestionToAdd\"][\"numberOfAnswer\"].value;\n" +
-                    "    var a = document.forms[\"showViewQuestionToAdd\"][\"1\"].value;\n" +
-                    "    var b = document.forms[\"showViewQuestionToAdd\"][\"2\"].value;\n" +
                     "    if (x==null || x==\"\") {\n" +
                     "        alert(\"Question field must be filled out\");\n" +
                     "        return false;\n" +
@@ -300,15 +334,7 @@ public class AddQuestion extends HttpServlet {
                     "        alert(\"Answer field must be filled out\");\n" +
                     "        return false;\n" +
                     "    }\n" +
-                    "    if (a==null || a==\"\") {\n" +
-                    "        alert(\"First possible answer field must be filled out\");\n" +
-                    "        return false;\n" +
-                    "    }\n" +
-                    "    if (b==null || b==\"\") {\n" +
-                    "        alert(\"Second possible answer field must be filled out\");\n" +
-                    "        return false;\n" +
-                    "    }\n" +
-                    "    if (!isNaN(parseFloat(y)) && isFinite(y)) {\n" +
+                    "    if (isNaN(parseFloat(y))) {\n" +
                     "        alert(\"Answer field must be numeric\");\n" +
                     "        return false;\n" +
                     "    }\n" +
