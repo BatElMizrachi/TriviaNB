@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Vector;
-import javafx.scene.web.WebEvent;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -48,33 +41,28 @@ public class Connect extends HttpServlet
         {
             if( request.getParameter("remember-me") != null )
             {
-                SaveToCookie(request,response,computerName);
+                Cookie c = SaveToCookie(request,response,computerName);
+                UserConnect(request,response,c.getValue().toString());
             }
-            
-            // העברת שם פרטי ומשפחה?!
-            response.sendRedirect("/Trivia/StartGame.html");
-        }
-        
-        if (CheckRegisteredUser(request, computerName))
-        {
-            // העברת שם פרטי ומשפחה?!
-            response.sendRedirect("/Trivia/StartGame.html");
+            else
+            {
+                String user = "computer=" + computerName + ";first_name=" 
+                                + request.getParameter("First") + ";last_name=" + request.getParameter("Last");
+                 UserConnect(request,response, user);
+            }
         }
         else
         {
-            SignIn(request, response);
+            String user = CheckRegisteredUser(request, computerName);
+            if (user.equals("New user"))
+            {
+                SignIn(request, response);
+            }
+            else
+            {
+                UserConnect(request,response,user);
+            }
         }
-        
-        
-        
-        
-        /*
-       
-        
-                   
-            session.setAttribute("First_name", request.getParameter("First"));
-            session.setAttribute("Last_name", request.getParameter("Last"));
-*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -117,7 +105,7 @@ public class Connect extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-    private boolean CheckRegisteredUser (HttpServletRequest request, String computerName)
+    private String CheckRegisteredUser (HttpServletRequest request, String computerName)
     {
         Cookie[] cookies = null;
         cookies = request.getCookies();
@@ -128,11 +116,11 @@ public class Connect extends HttpServlet
              //   cookie.getName().equals("user ")
                 if (cookie.getValue().contains(computerName))
                 {
-                    return true;
+                    return cookie.getValue().toString();
                 }
             }
         }
-        return false;
+        return "New user";
     }
     
     private void SignIn(HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -169,12 +157,30 @@ public class Connect extends HttpServlet
         }
     }
     
-    private void SaveToCookie(HttpServletRequest request,HttpServletResponse response, String computerName)
+    private Cookie SaveToCookie(HttpServletRequest request,HttpServletResponse response, String computerName)
     {
         String cookieString = "computer=" + computerName + ";first_name=" 
                                 + request.getParameter("First") + ";last_name=" + request.getParameter("Last");
         Cookie cookie = new Cookie("user", cookieString);
         cookie.setMaxAge(15 * 365 * 24 * 60 * 60);
         response.addCookie(cookie);
+        
+        return cookie;
+    }
+    
+    private void UserConnect(HttpServletRequest request, HttpServletResponse response,String user) throws IOException
+    {
+        HttpSession session =request.getSession(true);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) 
+        {
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletLogin</title>");    
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h3 style=\"color:white;\"> Welcome, "+ user + " </h3>");
+        }
     }
 }
