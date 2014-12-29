@@ -31,11 +31,7 @@ public class Connect extends HttpServlet
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
-    {
-        
-        // Create a session object if it is not created.
-        HttpSession session = request.getSession(true);
-        
+    {   
         String computerName = java.net.InetAddress.getLocalHost().getHostName();
         if (request.getParameter("AfterFill") != null)
         {
@@ -137,10 +133,8 @@ public class Connect extends HttpServlet
             out.println("<body>");
             out.println("<div class=\"container\">\n" +
 "            <form class=\"form-signin\" role=\"form\" action=\"Connect\">\n" +
-"                <h2 class=\"form-signin-heading\">Please sign in</h2>\n" +
-"                <label for=\"inputEmail\" class=\"sr-only\">First Name</label>\n" +
+"                Please sign in\n" +
 "                <input type=\"text\" class=\"form-control\" placeholder=\"First Name\" name=\"First\" required autofocus>\n" +
-"                <label for=\"inputPassword\" class=\"sr-only\">Last Name</label>\n" +
 "                <input type=\"text\" class=\"form-control\" placeholder=\"Last Name\" name=\"Last\" required>\n" +
 "                <div class=\"checkbox\">\n" +
 "                    <label>\n" +
@@ -159,8 +153,8 @@ public class Connect extends HttpServlet
     
     private Cookie SaveToCookie(HttpServletRequest request,HttpServletResponse response, String computerName)
     {
-        String cookieString = "computer=" + computerName + ";first_name=" 
-                                + request.getParameter("First") + ";last_name=" + request.getParameter("Last");
+        String cookieString = "computer=" + computerName + "-first_name=" 
+                                + request.getParameter("First") + "-last_name=" + request.getParameter("Last");
         Cookie cookie = new Cookie("user", cookieString);
         cookie.setMaxAge(15 * 365 * 24 * 60 * 60);
         response.addCookie(cookie);
@@ -180,7 +174,7 @@ public class Connect extends HttpServlet
             out.println("<title>Servlet ServletLogin</title>");    
             out.println("</head>");
             out.println("<body>");
-            out.println("<h3 style=\"color:white;\"> Welcome, "+ user + " </h3>");
+            out.println("<left> Welcome, "+ user + " </left>");
         }
     }
 }
