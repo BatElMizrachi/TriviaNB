@@ -42,8 +42,7 @@ public class Connect extends HttpServlet
             }
             else
             {
-                String user = "computer=" + computerName + ";first_name=" 
-                                + request.getParameter("First") + ";last_name=" + request.getParameter("Last");
+                String user = request.getParameter("First") + " " + request.getParameter("Last");
                  UserConnect(request,response, user);
             }
         }
@@ -127,7 +126,8 @@ public class Connect extends HttpServlet
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Connect</title>");   
+            out.println("<title>Servlet Connect</title>"); 
+            out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
             out.println("<link href=\"Style/signin.css\" rel=\"stylesheet\" type=\"text/css\"/>");
             out.println("</head>");
             out.println("<body>");
@@ -153,8 +153,7 @@ public class Connect extends HttpServlet
     
     private Cookie SaveToCookie(HttpServletRequest request,HttpServletResponse response, String computerName)
     {
-        String cookieString = "computer=" + computerName + "-first_name=" 
-                                + request.getParameter("First") + "-last_name=" + request.getParameter("Last");
+        String cookieString = request.getParameter("First") + " " + request.getParameter("Last");
         Cookie cookie = new Cookie("user", cookieString);
         cookie.setMaxAge(15 * 365 * 24 * 60 * 60);
         response.addCookie(cookie);
@@ -164,14 +163,17 @@ public class Connect extends HttpServlet
     
     private void UserConnect(HttpServletRequest request, HttpServletResponse response,String user) throws IOException
     {
-        HttpSession session =request.getSession(true);
+        HttpSession session = request.getSession(true);
+        session.putValue("user", user);
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) 
         {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletLogin</title>");    
+            out.println("<title>Servlet ServletLogin</title>");
+            out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+            out.println("<link href=\"Style/signin.css\" rel=\"stylesheet\" type=\"text/css\"/>");
             out.println("</head>");
             out.println("<body>");
             out.println("<left> Welcome, "+ user + " </left>");

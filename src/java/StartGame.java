@@ -82,7 +82,7 @@ public class StartGame extends HttpServlet
         else // calc questions
         {
             HashMap<String,String> CategoriesLevel = GetCategoriesLevelByUserChoose(request,response);
-            ((Manager)session.getAttribute("manager")).CalculateQuestionList(CategoriesLevel);
+            ((Manager)session.getAttribute("manager")).CalculateQuestionList(CategoriesLevel, request.getRealPath("/"));
             
             int index = (int)session.getAttribute("NumofQuestions");
             
@@ -263,14 +263,13 @@ public class StartGame extends HttpServlet
             out.println("</head>");
             out.println("<body>");
             
-            out.println("<h2>hey, " + session.getAttribute("FirstName") + " " + 
-                                      session.getAttribute("LastName") + ".</h1>");
+            out.println("<h2>hey, " + session.getAttribute("user") +".</h2>");
             
-            out.println("<h3>You asked by categories</h1>");
-            out.println("<h3>Food: " + session.getAttribute("FoodCount") + "</h1>");
-            out.println("<h3>History: " + session.getAttribute("HistoryCount") + "</h1>");
-            out.println("<h3>Sport: " + session.getAttribute("SportCount") + "</h1>");
-            out.println("<h3>Other: " + session.getAttribute("OtherCount") + "</h1>");
+            out.println("<h3>You asked by categories</h3>");
+            out.println("<h3>Food: " + session.getAttribute("FoodCount") + "</h3>");
+            out.println("<h3>History: " + session.getAttribute("HistoryCount") + "</h3>");
+            out.println("<h3>Sport: " + session.getAttribute("SportCount") + "</h3>");
+            out.println("<h3>Other: " + session.getAttribute("OtherCount") + "</h3>");
             
             if(score <= 60)
             {

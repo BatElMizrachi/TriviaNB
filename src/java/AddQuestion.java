@@ -26,7 +26,9 @@ public class AddQuestion extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet AddQuestion</title>");            
+                out.println("<title>Servlet AddQuestion</title>"); 
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
+                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 
@@ -71,6 +73,8 @@ public class AddQuestion extends HttpServlet {
                 out.println("<html>");
                 out.println("<head>");
                 out.println("<title>Servlet AddQuestion</title>");  
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
+                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 
                 SetJavaScriptForMultiplePossibleQuestion(out);
                 
@@ -84,17 +88,18 @@ public class AddQuestion extends HttpServlet {
                         + request.getParameter("question") 
                         + " width=\"400\" height=\"50\">");
                 out.println("<br>");
-                
+                out.println("<div class=\"possible-answers\">");
                 out.println("   <h1>Insert possible answers:</h1>");
                 out.println("   <ol>");
                 
                 for (int i = 1; i <= Integer.parseInt(request.getParameter("count")); i++) {
-                    out.println("       <li>");
+                    out.println("       <li class=\"list-answers\">");
                     out.println("           <input type=\"text\" name=\""+i+"\" width=\"400\" height=\"50\">");
                     out.println("       </li>");
                 }
                 
                 out.println("   </ol>");
+                out.println("</div>");
                 
                 out.println("<input type=\"hidden\" name=\"forSave\" value=\"yes\">");
                 out.println("<h1>Select answers number:</h1>");
@@ -124,7 +129,9 @@ public class AddQuestion extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet AddQuestion</title>");  
+                out.println("<title>Servlet AddQuestion</title>"); 
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
+                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 
                 SetJavaScript(questionType, out);
                 
@@ -160,10 +167,12 @@ public class AddQuestion extends HttpServlet {
             HiddenInputView(out, request);
             QuestionView(out);
             out.println("<h1>Select answer:</h1>");
+            out.println("<div class=\"yesNoAnswer\">");
             out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"Yes\" checked>Yes");
             out.println("<br>");
             out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"No\">No");
             out.println("<input type=\"hidden\" name=\"forSave\" value=\"yes\">");
+            out.println("</div>");
             SaveView(out);
         }
         else if (questionType.equals(QuestionType.MultiplePossible))
@@ -172,8 +181,8 @@ public class AddQuestion extends HttpServlet {
             
             out.println("<h1>Insert count of possible answers:</h1>");
             out.println("<input type=\"text\" name=\"count\" width=\"400\" height=\"50\">");
-            out.println("<br>");
-            out.println("<input type=\"submit\" value=\"Continue\">");
+            out.println("<br>");        
+            out.println("<button type=\"submit\" class=\"btn btn-default btn-continue\" value=\"Continue\">Continue</button>");
             
             HiddenInputView(out, request);
         }
@@ -188,7 +197,7 @@ public class AddQuestion extends HttpServlet {
     private void AddQuestionByType(HttpServletRequest request , final PrintWriter out) throws Exception {
         
         ArrayList<QuestionBase> allQuestions = new ArrayList<QuestionBase>();
-        allQuestions = FileHandler.ReadQuestions();
+        allQuestions = FileHandler.ReadQuestions(request.getRealPath("/"));
         
         if(request.getParameter("openAnswer") != null)
         {
@@ -198,7 +207,7 @@ public class AddQuestion extends HttpServlet {
             openQuestion.SetCategory(Utils.GetCategoryByUserChoose(request.getParameter("Category")));
             openQuestion.SetLevel(Utils.GetLevelByUserChoose(request.getParameter("Level")));
             allQuestions.add(openQuestion);
-            FileHandler.WriteQuestions(allQuestions);
+            FileHandler.WriteQuestions(allQuestions, request.getRealPath("/"));
         }
         else if (request.getParameter("yesNoAnswer") != null)
         {
@@ -208,7 +217,7 @@ public class AddQuestion extends HttpServlet {
             yesNoQuestion.SetCategory(Utils.GetCategoryByUserChoose(request.getParameter("Category")));
             yesNoQuestion.SetLevel(Utils.GetLevelByUserChoose(request.getParameter("Level")));
             allQuestions.add(yesNoQuestion);
-            FileHandler.WriteQuestions(allQuestions);
+            FileHandler.WriteQuestions(allQuestions,request.getRealPath("/"));
         }
         else if (request.getParameter("numberOfAnswer") != null)
         {
@@ -254,7 +263,7 @@ public class AddQuestion extends HttpServlet {
                 multiplePossibleQuestion.SetCategory(Utils.GetCategoryByUserChoose(request.getParameter("Category")));
                 multiplePossibleQuestion.SetLevel(Utils.GetLevelByUserChoose(request.getParameter("Level")));
                 allQuestions.add(multiplePossibleQuestion);
-                FileHandler.WriteQuestions(allQuestions);
+                FileHandler.WriteQuestions(allQuestions,request.getRealPath("/"));
             }
         }
         else
@@ -361,7 +370,7 @@ public class AddQuestion extends HttpServlet {
     
     private void SaveView(PrintWriter out){
         out.println("<br>");
-        out.println("<input type=\"submit\" value=\"Save\">");
+        out.println("<button type=\"submit\" class=\"btn btn-default btn-save\" value=\"Save\">Save</button>");
     }
     
     @Override

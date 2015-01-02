@@ -1,0 +1,94 @@
+.input[type=radio   ]:not(old)
+{
+  width   : 28px;
+  margin  : 0;
+  padding : 0;
+  opacity : 0;
+   display      : inline-block;
+  margin-left  : -28px;
+  padding-left : 28px;
+  line-height  : 24px;
+  background-position : 0 -48px;
+}
+
+.contain
+{
+     background: #cccccc;
+     position: absolute;
+     width: 250px;
+     height: 180px;
+     margin: 30px;
+     border-radius: 9px;
+}
+
+h2, .headerContain
+{
+    background: white;
+    margin: 0px;
+    padding: 10px;
+    border-radius: 9px;
+}
+
+.Sport
+{
+    left:300px;
+    margin-left: 0px;
+}
+
+.History
+{
+    position: absolute;
+    left: 530px;
+}
+
+.Other
+{
+    position: absolute;
+    left: 790px;
+}
+
+.imgCont
+{
+    position: relative;
+    left: 100px;
+    height: 60px; 
+    width:60px;
+}
+
+.Level
+{
+    left:350px;
+    margin-left: 0px;
+}
+
+.Type
+{
+    margin-left: 0px;
+    left: 660px;
+}
+
+.btn-continue
+{
+    position: absolute;
+    top: 240px;
+    left: 40px;
+}
+
+.btn-save
+{
+    position: absolute;
+    top: 240px;
+    left: 40px;
+}
+
+.possible-answers
+{
+    position: absolute;
+    left: 300px;
+    top: 50px;
+}
+
+.list-answers
+{
+    margin: 10px;
+}

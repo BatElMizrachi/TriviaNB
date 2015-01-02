@@ -37,17 +37,14 @@ public class DeleteQuestion extends HttpServlet {
                 out.println("<html>");
                 out.println("<head>");
                 out.println("<title>Show All Q</title>");   
-                out.println("<link href=\"Style/bootstrap-theme.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap-theme.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 
                 try
                 {
                     allQuestions.remove(Integer.parseInt(request.getParameter("numberToDelete")) - 1);
-                    FileHandler.WriteQuestions(allQuestions);
+                    FileHandler.WriteQuestions(allQuestions,request.getRealPath("/"));
                     
                     out.println("<form name=\"Success\">");
                     out.println("<h1>The question has been deleted</h1>");
@@ -73,7 +70,7 @@ public class DeleteQuestion extends HttpServlet {
                 allQuestions = new ArrayList<QuestionBase>();
                 try 
                 {
-                    allQuestions = FileHandler.ReadQuestions();
+                    allQuestions = FileHandler.ReadQuestions(request.getRealPath("/"));
                 } 
                 catch (ClassNotFoundException ex) 
                 {
@@ -83,11 +80,10 @@ public class DeleteQuestion extends HttpServlet {
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Show All Q</title>");   
-                out.println("<link href=\"Style/bootstrap-theme.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap-theme.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap.min.css\" rel=\"stylesheet\" type=\"text/css\"/>");
-                out.println("<link href=\"Style/bootstrap.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<title>Show All Q</title>");        
+                out.println("<link href=\"Style/delete.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                
                
                 out.println("<script>\n" +
                     "function validateForm() {\n" +
@@ -110,7 +106,7 @@ public class DeleteQuestion extends HttpServlet {
                 out.println("<form name=\"DeleteForm\">");
                 out.println("<h3>Insert number of question to delete:</h3>");
                 out.println("<input type=\"text\" name=\"numberToDelete\"/>");
-                out.println("<input type=\"submit\" value=\"Delete\" onclick=\"return validateForm();\"/>");
+                out.println("<button type=\"submit\" class=\"btn btn-default btn-delete\" value=\"Delete\" onclick=\"return validateForm();\">Delete</button>");
                 out.println("</form>");
                 
                 out.println("</body>");

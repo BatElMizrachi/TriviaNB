@@ -22,62 +22,62 @@ and open the template in the editor.
                 }
             }
                   </script>
+                  
+        <link href="Style/Add.css" rel="stylesheet" type="text/css"/>
+        <link href="Style/appliction.css" rel="stylesheet" type="text/css"/>        
     </head>
     <body>
         <h1> Select categories (at least once), and for each category Difficulty </h1>
         <FORM ACTION="StartGame">
-            <div>
-                <span style="position: relative"><input type="checkbox" name="Category" value="Food" align="top" /></span>
-                <span style="margin-left: 100px; margin-right: 100px">Food</span>
+            <div class="contain">
+                <nav class="headerContain">
+                    <span><input type="checkbox" name="Category" value="Food"/></span>
+                    <span style="margin-left: 10px">Food</span>
+                    <span><img class="imgCont" src="Pic/Food.jpg" alt="Food"/></span>
+                </nav>
                 <ol style="display: inline-block ;margin-top: 1em; padding-left: 40px">
-                    <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Easy" />Easy </li>
+                    <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Easy" checked/>Easy </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Medium" />Medium </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelFood" value="Difficult" />Difficult </li>
                 </ol>
-                <span style="display: inline-block"><img src="Pic/Food.jpg" alt="Food" style="height: 60px; width:60px ;align:right"/></span>
-             
             </div>
-            <div class="navbar navbar-default" role="navigation">
-                <span><input type="checkbox" name="Category" value="Sport" />Sport</span>
-                
-                <ol style="display: inline-block">
-                    <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Easy" />Easy </li>
+            <div class="contain Sport">
+                <nav class="headerContain">
+                    <span><input type="checkbox" name="Category" value="Sport" /></span>
+                    <span style="margin-left: 10px">Sport</span>
+                    <span><img class="imgCont" src="Pic/sport.jpg" alt="Sport"/></span>
+                </nav>
+                <ol style="display: inline-block ;margin-top: 1em; padding-left: 40px">
+                    <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Easy" checked/>Easy </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Medium" />Medium </li>
                     <li style="list-style-type: none"><input type="radio" name="LevelSport" value="Difficult" />Difficult </li>
-                 </ol>
-                <span style="display: inline-block"><img class="picCategory" src="Pic/sport.jpg" alt="Sport" style="height: 60px; width:60px ;align:top"/></span>
-             </div> 
+                </ol>
+            </div> 
             
-            <div class="Category">
-                <span><input type="checkbox" name="Category" value="History" /></span> 
-                <span>History</span>
+             <div class="contain History">
+                <nav class="headerContain">
+                    <span><input type="checkbox" name="Category" value="History" /></span> 
+                    <span>History</span>
+                    <span><img class="imgCont" src="Pic/History.jpg" alt=""/></span>
+                </nav>
                 <ol>
-                    <li><input type="radio" name="LevelHistory" value="Easy" />Easy</li>
+                    <li><input type="radio" name="LevelHistory" value="Easy" checked/>Easy</li>
                     <li><input type="radio" name="LevelHistory" value="Medium" />Medium</li> 
                     <li><input type="radio" name="LevelHistory" value="Difficult" />Difficult</li> 
                 </ol>
-                <span>
-                <img src="Pic/History.jpg" alt="" style="height: 60px; width:60px ;align:top"/>
-                </span>
-                
-                 <div class="Category">
-                <span>
-                    <input type="checkbox" name="Category" id="CategoryOther" value="Other">Other
-                </span> 
-                <ol >
+            </div>
+            <div class="contain Other">
+                <nav class="headerContain">
+                    <span><input type="checkbox" name="Category" id="CategoryOther" value="Other"></span>
+                    <span>Other</span>
+                    <span><img class="imgCont" src="Pic/Other.jpg" alt=""/></span>
+                </nav>
+                <ol>
                     <li><input type="radio"  name="LevelOther" value="Easy" checked>Easy <br></li>
                     <li><input type="radio" name="LevelOther" value="Medium" >Medium <br></li>
                     <li><input type="radio" name="LevelOther" value="Difficult" >Difficult <br></li>
                 </ol>
-                <span>
-                    <img src="Pic/Other.jpg" alt=""/>
-                </span>
             </div> 
-
-            
-            
-            
-            
             <div> <input class="btn btn-default navbar-btn" type="submit" value="Play!" name="Play!" onclick="return isValid();"/></div>
             
         </form>

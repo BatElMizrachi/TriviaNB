@@ -5,11 +5,12 @@ import java.io.*;
 
 public class FileHandler 
 {
-    public static ArrayList<QuestionBase> ReadQuestions() throws FileNotFoundException, IOException, ClassNotFoundException
+    public static ArrayList<QuestionBase> ReadQuestions(String path) 
+        throws FileNotFoundException, IOException, ClassNotFoundException
     {
         try
         {
-            String textPath = "C:\\temp1\\data.dat";
+            String textPath = path + "data.dat";
             FileInputStream File = new FileInputStream(textPath);
             ObjectInputStream ois = new ObjectInputStream(File);
             ArrayList<QuestionBase> allQuestions = (ArrayList<QuestionBase>)ois.readObject();
@@ -23,16 +24,17 @@ public class FileHandler
         }
     }
 
-    public static void WriteQuestions(ArrayList<QuestionBase> allQuestions) throws FileNotFoundException, IOException
+    public static void WriteQuestions(ArrayList<QuestionBase> allQuestions, String path) 
+            throws FileNotFoundException, IOException
     {
-        File theDir = new File("C:\\temp1");
+       /* File theDir = new File("C:\\temp1");
 
         if (!theDir.exists())
         {
             theDir.mkdir();
         }
- 
-        String textPath = "C:\\temp1\\data.dat";
+ */
+        String textPath = path + "data.dat";
         File FileQuestions = new File(textPath);
         FileQuestions.delete();
         

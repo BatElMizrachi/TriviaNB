@@ -34,12 +34,12 @@ public class Manager
         return questions.size();
     }
     
-    public void CalculateQuestionList(HashMap<String,String> CategoriesLevel) 
+    public void CalculateQuestionList(HashMap<String,String> CategoriesLevel, String path) 
             throws IOException, FileNotFoundException, ClassNotFoundException
     {
         // טעינת השאלות
         ArrayList<QuestionBase> allQuestions = new ArrayList<QuestionBase>();
-        allQuestions = FileHandler.ReadQuestions();
+        allQuestions = FileHandler.ReadQuestions(path);
         
         //הכנסת השאלות המתאימות לאוביקט
         questions = new ArrayList<QuestionBase>();
