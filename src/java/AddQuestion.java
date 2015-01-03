@@ -28,15 +28,17 @@ public class AddQuestion extends HttpServlet {
                 out.println("<head>");
                 out.println("<title>Servlet AddQuestion</title>"); 
                 out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
-                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                            "<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 
                 AddQuestionByType(request, out);
 
                 out.println("<form name=\"Success\">");        
-                out.println("<h1>The question has been saved</h1>");
-                out.println("<span><img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\"/></span>");
+                out.println("<nav class=\"headerContain\">");
+                out.println("<h1 class=\"h1-m\">The question has been saved</h1>");
+                out.println("<span><img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\"></span>");
+                out.println("</nav>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");
@@ -74,7 +76,7 @@ public class AddQuestion extends HttpServlet {
                 out.println("<head>");
                 out.println("<title>Servlet AddQuestion</title>");  
                 out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
-                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                            "<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 
                 SetJavaScriptForMultiplePossibleQuestion(out);
                 
@@ -131,7 +133,7 @@ public class AddQuestion extends HttpServlet {
                 out.println("<head>");
                 out.println("<title>Servlet AddQuestion</title>"); 
                 out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>\n" +
-                            "<link href=\"Style/Add.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                            "<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 
                 SetJavaScript(questionType, out);
                 

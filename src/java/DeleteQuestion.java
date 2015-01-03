@@ -38,6 +38,7 @@ public class DeleteQuestion extends HttpServlet {
                 out.println("<head>");
                 out.println("<title>Show All Q</title>");   
                 out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 
@@ -47,8 +48,10 @@ public class DeleteQuestion extends HttpServlet {
                     FileHandler.WriteQuestions(allQuestions,request.getRealPath("/"));
                     
                     out.println("<form name=\"Success\">");
-                    out.println("<img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\">");
-                    out.println("<h1>The question has been deleted</h1>");
+                    out.println("<nav class=\"headerContain\">");
+                    out.println("<h1 class=\"h1-m\">The question has been deleted</h1>");
+                    out.println("<span><img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\"></span>");
+                    out.println("</nav>");
                     out.println("</form>");
                 }
                 catch (Exception ex)

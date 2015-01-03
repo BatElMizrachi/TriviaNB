@@ -48,7 +48,7 @@ public class Connect extends HttpServlet
         }
         else
         {
-            String user = CheckRegisteredUser(request, computerName);
+            String user = CheckRegisteredUser(request);
             if (user.equals("New user"))
             {
                 SignIn(request, response);
@@ -100,7 +100,7 @@ public class Connect extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-    private String CheckRegisteredUser (HttpServletRequest request, String computerName)
+    private String CheckRegisteredUser (HttpServletRequest request)
     {
         Cookie[] cookies = null;
         cookies = request.getCookies();
@@ -108,10 +108,9 @@ public class Connect extends HttpServlet
         {
             for (Cookie cookie : cookies)
             {
-             //   cookie.getName().equals("user ")
-                if (cookie.getValue().contains(computerName))
+                if (cookie.getName().equals("user"))
                 {
-                    return cookie.getValue().toString();
+                    return cookie.getValue();
                 }
             }
         }
