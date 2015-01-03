@@ -34,7 +34,9 @@ body {
 
 left
 {
-    top: 100%;
+    size: a5;
+position: relative;
+top: 130px;
 }
 
 .btn-sign

@@ -108,7 +108,7 @@ public class DeleteQuestion extends HttpServlet {
                 
                 out.println("<form name=\"DeleteForm\">");
                 out.println("<h3>Insert number of question to delete:</h3>");
-                out.println("<input type=\"text\" name=\"numberToDelete\"/>");
+                out.println("<input type=\"text\" name=\"numberToDelete\" class=\"count\"/>");
                 out.println("<button type=\"submit\" class=\"btn btn-default btn-delete\" value=\"Delete\" onclick=\"return validateForm();\">Delete</button>");
                 out.println("</form>");
                 
