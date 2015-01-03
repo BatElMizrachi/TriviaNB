@@ -57,7 +57,9 @@ public class StartGame extends HttpServlet
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
                 out.println("<head>");
-                out.println("<title>Servlet StartGame</title>");            
+                out.println("<title>Servlet StartGame</title>");    
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 AskQuestionForm(out, session);
@@ -131,6 +133,8 @@ public class StartGame extends HttpServlet
                     }
                 }
                 
+                out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+                out.println("<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
                 out.println("</head>");
                 out.println("<body>");
                 
@@ -201,14 +205,19 @@ public class StartGame extends HttpServlet
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StartGame</title>");     
+            out.println("<title>Servlet StartGame</title>");  
+            out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+            out.println("<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
             out.println("</head>");
             out.println("<body>");
             
             if(isCorrect)
             {
                 out.println("<form name=\"Success\">");
+                out.println("<nav class=\"headerContain\">");
                 out.println("<h1>Excellent!! correct answer</h1>");
+                out.println("<span><img src=\"Pic/correct.png\" alt=\"\"/></span>");
+                out.println("</nav>");
                 out.println("</form>");
                 out.println("<form name=\"Submit\">");
                 
@@ -260,6 +269,8 @@ public class StartGame extends HttpServlet
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet StartGame</title>");
+            out.println("<link href=\"Style/appliction.css\" rel=\"stylesheet\" type=\"text/css\"/>");
+            out.println("<link href=\"Style/Question.css\" rel=\"stylesheet\" type=\"text/css\"/>");
             out.println("</head>");
             out.println("<body>");
             
@@ -311,8 +322,7 @@ public class StartGame extends HttpServlet
         {
             ShowQuestion(out, currentQuestion);
             out.println("<h1>Your answer:</h1>");
-            out.println("<br>");
-            out.println("<input type=\"text\" name=\"openAnswer\" width=\"400\" height=\"50\">");
+            out.println("<input type=\"text\" name=\"openAnswer\" class=\"Answer\">");
             
         }
         else if(currentQuestion.GetQuestionType().equals(QuestionType.YesNo))
@@ -320,10 +330,8 @@ public class StartGame extends HttpServlet
             ShowQuestion(out, currentQuestion);
             
             out.println("<h1>Your answer:</h1>");
-            out.println("<br>");
-            out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"Yes\" checked>Yes");
-            out.println("<br>");
-            out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"No\">No");  
+            out.println("<input type=\"radio\" name=\"yesNoAnswer\" class=\"list-answers\" value=\"Yes\" checked>Yes");
+            out.println("<input type=\"radio\" name=\"yesNoAnswer\" class=\"list-answers\" value=\"No\">No");  
         }
         else if (currentQuestion.GetQuestionType().equals(QuestionType.MultiplePossible))
         {
@@ -348,9 +356,7 @@ public class StartGame extends HttpServlet
 
     private void ShowQuestion(final PrintWriter out, QuestionBase currentQuestion) {
         out.println("<h1>The question is:</h1>");
-        out.println("<br>");
-        out.println("<h1>"+ currentQuestion.GetQuestion() +"</h1>");
-        out.println("<br>");
+        out.println("<h2>"+ currentQuestion.GetQuestion() +"</h2>");
     }
 
     private void UpdateCategoryCount(HttpSession session, QuestionBase question)

@@ -92,3 +92,29 @@ h2, .headerContain
 {
     margin: 10px;
 }
+
+
+.play
+{
+    position: absolute;
+    left: 500px;
+    top: 300px
+}
+
+ol
+{
+    display: inline-block ;
+    margin-top: 1em;
+    padding-left: 40px;
+}
+
+.list-level
+{
+    list-style-type: none;
+}
+
+.Answer
+{
+    width:600px;
+    height:50px;
+}

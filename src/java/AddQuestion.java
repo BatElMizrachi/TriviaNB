@@ -34,9 +34,9 @@ public class AddQuestion extends HttpServlet {
                 
                 AddQuestionByType(request, out);
 
-                out.println("<form name=\"Success\">");
+                out.println("<form name=\"Success\">");        
                 out.println("<h1>The question has been saved</h1>");
-                out.println("<img src=\"Pic/Correct.jpg\"/>");
+                out.println("<span><img src=\"Pic/correct.png\" alt=\"\" width=\"150px\"/></span>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");
@@ -158,7 +158,7 @@ public class AddQuestion extends HttpServlet {
             HiddenInputView(out, request);
             QuestionView(out);
             out.println("<h1>Insert answer:</h1>");
-            out.println("<input type=\"text\" name=\"openAnswer\" width=\"400\" height=\"50\">");
+            out.println("<input type=\"text\" name=\"openAnswer\" class=\"Answer\">");
             out.println("<input type=\"hidden\" name=\"forSave\" value=\"yes\">");
             SaveView(out);
         }
@@ -169,7 +169,6 @@ public class AddQuestion extends HttpServlet {
             out.println("<h1>Select answer:</h1>");
             out.println("<div class=\"yesNoAnswer\">");
             out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"Yes\" checked>Yes");
-            out.println("<br>");
             out.println("<input type=\"radio\" name=\"yesNoAnswer\" value=\"No\">No");
             out.println("<input type=\"hidden\" name=\"forSave\" value=\"yes\">");
             out.println("</div>");
@@ -180,8 +179,7 @@ public class AddQuestion extends HttpServlet {
             QuestionView(out);
             
             out.println("<h1>Insert count of possible answers:</h1>");
-            out.println("<input type=\"text\" name=\"count\" width=\"400\" height=\"50\">");
-            out.println("<br>");        
+            out.println("<input type=\"text\" name=\"count\" width=\"400\" height=\"50\">");      
             out.println("<button type=\"submit\" class=\"btn btn-default btn-continue\" value=\"Continue\">Continue</button>");
             
             HiddenInputView(out, request);
