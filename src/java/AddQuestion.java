@@ -181,7 +181,7 @@ public class AddQuestion extends HttpServlet {
             QuestionView(out);
             
             out.println("<h1>Insert count of possible answers:</h1>");
-            out.println("<input type=\"text\" name=\"count\" width=\"400\" height=\"50\">");      
+            out.println("<input type=\"text\" name=\"count\" class=\"count\">");      
             out.println("<button type=\"submit\" class=\"btn btn-default btn-continue\" value=\"Continue\">Continue</button>");
             
             HiddenInputView(out, request);

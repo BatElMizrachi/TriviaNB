@@ -84,7 +84,7 @@ h2, .headerContain
 .possible-answers
 {
     position: absolute;
-    left: 300px;
+    left: 600px;
     top: 50px;
 }
 
@@ -125,10 +125,4 @@ ol
 .list-level
 {
     list-style-type: none;
-}
-
-.Answer
-{
-    width:600px;
-    height:50px;
 }

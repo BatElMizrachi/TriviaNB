@@ -322,7 +322,7 @@ public class StartGame extends HttpServlet
         {
             ShowQuestion(out, currentQuestion);
             out.println("<h1>Your answer:</h1>");
-            out.println("<input type=\"text\" name=\"openAnswer\" class=\"Answer\">");
+            out.println("<input type=\"text\" name=\"openAnswer\">");
             
         }
         else if(currentQuestion.GetQuestionType().equals(QuestionType.YesNo))
