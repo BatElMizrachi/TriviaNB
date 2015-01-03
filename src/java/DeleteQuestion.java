@@ -47,8 +47,8 @@ public class DeleteQuestion extends HttpServlet {
                     FileHandler.WriteQuestions(allQuestions,request.getRealPath("/"));
                     
                     out.println("<form name=\"Success\">");
+                    out.println("<img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\">");
                     out.println("<h1>The question has been deleted</h1>");
-                    out.println("<img src=\"Pic/Correct.jpg\"/>");
                     out.println("</form>");
                 }
                 catch (Exception ex)

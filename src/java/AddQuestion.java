@@ -36,7 +36,7 @@ public class AddQuestion extends HttpServlet {
 
                 out.println("<form name=\"Success\">");        
                 out.println("<h1>The question has been saved</h1>");
-                out.println("<span><img src=\"Pic/correct.png\" alt=\"\" width=\"150px\"/></span>");
+                out.println("<span><img src=\"Pic/correct.png\" alt=\"\" class=\"correct_pic\"/></span>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</html>");

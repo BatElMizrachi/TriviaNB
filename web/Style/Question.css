@@ -98,7 +98,15 @@ h2, .headerContain
 {
     position: absolute;
     left: 500px;
-    top: 300px
+    top: 200px;
+}
+
+.correct_pic
+{
+    width: 90px;
+position: absolute;
+left: 0px;
+top: 0px;
 }
 
 ol

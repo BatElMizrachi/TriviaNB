@@ -142,7 +142,7 @@ public class Connect extends HttpServlet
 "                    </label>\n" +
 "                </div>\n" +
 "                <input type=\"hidden\" name=\"AfterFill\" value=\"Fill\">" +
-"                <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n" +
+"                <button class=\"btn btn-sign\" type=\"submit\">Sign in</button>\n" +
 "            </form>\n" +
 "        </div>");
 
