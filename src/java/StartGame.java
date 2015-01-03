@@ -41,13 +41,7 @@ public class StartGame extends HttpServlet
         {
             manager=new Manager();
             session.setAttribute ("manager", manager);
-            session.setAttribute("CorrectAnswers", 0); 
-            session.setAttribute("NumofQuestions", 0); 
             
-            session.setAttribute("FoodCount", 0);
-            session.setAttribute("HistoryCount", 0);
-            session.setAttribute("SportCount", 0);
-            session.setAttribute("OtherCount", 0);
         }
         
         if(request.getParameter("endOrNot") != null && request.getParameter("endOrNot").equals("Continue")) // ask question
@@ -86,7 +80,14 @@ public class StartGame extends HttpServlet
             HashMap<String,String> CategoriesLevel = GetCategoriesLevelByUserChoose(request,response);
             ((Manager)session.getAttribute("manager")).CalculateQuestionList(CategoriesLevel, request.getRealPath("/"));
             
-            int index = (int)session.getAttribute("NumofQuestions");
+            session.setAttribute("CorrectAnswers", 0); 
+            session.setAttribute("NumofQuestions", 0); 
+            session.setAttribute("FoodCount", 0);
+            session.setAttribute("HistoryCount", 0);
+            session.setAttribute("SportCount", 0);
+            session.setAttribute("OtherCount", 0);
+            
+            int index = 0;
             
             try (PrintWriter out = response.getWriter()) 
             {
@@ -325,7 +326,7 @@ public class StartGame extends HttpServlet
         {
             ShowQuestion(out, currentQuestion);
             out.println("<h1>Your answer:</h1>");
-            out.println("<input type=\"text\" name=\"openAnswer\">");
+            out.println("<input type=\"text\" name=\"openAnswer\" class=\"Answer\">");
             
         }
         else if(currentQuestion.GetQuestionType().equals(QuestionType.YesNo))
