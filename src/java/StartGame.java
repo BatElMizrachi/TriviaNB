@@ -237,7 +237,10 @@ public class StartGame extends HttpServlet
             else
             {
                 out.println("<form name=\"Failure\">");
-                out.println("<h1>Wrong answer</h1>");
+                out.println("<nav class=\"headerContain\">");
+                out.println("<h1 class=\"h1-m\">Wrong answer</h1>");
+                out.println("<span><img src=\"Pic/wrong.jpg\" alt=\"\" class=\"correct_pic\"></span>");
+                out.println("</nav>");
                 out.println("</form>");
                 out.println("<form name=\"Submit\">");
                 

@@ -104,9 +104,9 @@ h2, .headerContain
 .correct_pic
 {
     width: 90px;
+height: 90px;
 position: absolute;
-left: 0px;
-top: 0px;
+top: 2px
 }
 
 
